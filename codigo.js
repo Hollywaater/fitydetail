@@ -1,5 +1,6 @@
 //Carrito de compras de Fit-Detail
-//Defino los precios de mis productos
+//----------------------- Declaración de variables/constantes --------------------
+
 const pasta = 1500;
 const cera = 1800;
 const dinner = 2200;
@@ -7,116 +8,166 @@ const revividor = 2500;
 const acondi = 1900;
 const shampoo = 1300;
 const envio = 800;
+
 let acumulador = 0;
-//Funcion para mostrar el menu
-function mostrarMenu (menu){
-    while (menu !="si"&& menu!= "no"){menu = prompt("Desea ver la lista de productos que FIT-DETAIL tiene en stock, ingrese si/no")}
-}
-//Integro las funciones necesarias para calcular el precio final segun el medio de pago.
-function descuento (descuento){
-    return descuento * 0.15;
-    }
-function precioEfectivo (precio,descuento){
-    return precio - descuento;
-}
-function precioCredito (precio,descuento){
-    return precio + descuento;
-}
-const calculoEnvio = function (precio){return precio + 800}
+let compra
 
-function mostrarMenu(catalogo){
-    while (catalogo != "si" && catalogo != "no"){
-        catalogo = prompt("Opción inválida ¿desea ver el catalogo de precios de FIT-DETAIL? si/no");
-    }
-}
-//Doy la bienvenidad al usuario 
-alert("Bienvenido a la tienda online de Fit-Detail");
 
-//Le pregunto al usuario si quiere ver el catalogo, en caso de opción invalida muestro un aviso y hasta que no ingrese la opción si o no no puede continuar
-function mostrarMenu(catalogo){
-    while (catalogo != "si" && catalogo != "no"){
-        catalogo = prompt("Opción inválida ¿desea ver el catalogo de precios de FIT-DETAIL? si/no");
+//----------------------- Declaración de funciones --------------------
+
+//Función que calcula el costo total según lo que ingresa el usuario
+function agregarCarrito() {
+
+    while (compra != "s") {
+        let compra = prompt("Ingrese el NÚMERO de producto que desea comprar (escriba s para salir y finalizar su compra): \n 1) Pasta para pulido: $"+pasta+"\n 2) Cera para abrillantado: $"+cera+"\n 3) Tinner para remover: $"+dinner+"\n 4) Acondicionador: $"+acondi+"\n 5) Shampoo ph neutro: $"+shampoo+"\n 6) Salir");
+        if (compra == "1") {
+            alert("Usted agrego una pasta para pulido a su carrito de compras")
+            acumulador = acumulador + pasta
+            
+        }
+        else if (compra == "2") {
+            alert("Usted agrego una cera para abrillantado a su carrito de compras")
+            acumulador = acumulador + cera
+            
+        }
+        else if (compra == "3") {
+            alert("Usted agrego un Tinner removedor de aceites a su carrito de compras")
+            acumulador = acumulador + dinner
+            
+        }
+        else if (compra == "4") {
+            alert("Usted agrego un Revividor de interiores a su carrito de compras")
+            acumulador = acumulador + revividor
+            
+        }
+        else if (compra == "5") {
+            alert("Usted agrego un Acondionador para vehiculos a su carrito de compras")
+            acumulador = acumulador + acondi
+        }
+        else if (compra == "6"){
+            alert("Usted agrego un Shampoo ph neutro para vehiculos a su carrito de compras")
+            acumulador = acumulador + shampoo
+        }
+        else if (compra == "s") {
+            if (acumulador > 0) {
+                alert(`Compra finalizada. Seleccione su método de pago`)
+                finalizarCompra()
+            }
+            else {
+                alert(`Gracias por visitarnos. Esperamos volver a verte pronto!`)
+            }
+            break;
+        }
+        else if (compra == null) {
+            alert(`Operación cancelada. Gracias por visitarnos. Esperamos volver a verte pronto!`);
+            console.log("dio escape")
+            break;
+        }
+        else {
+            alert(`Entrada inválida. Seleccione una de las 6 opciones`)
+        }
     }
 }
-let catalogo = prompt("Desea ver la lista de productos que FIT-DETAIL tiene en stock, ingrese si/no")
-let mostrar = mostrarMenu(catalogo)
-if (catalogo == "no") {alert("Muchas gracias por visitar FIT-DETAIL")}
-else if (catalogo == "si"){
-//Le muestro 
-let compra = prompt("Ingrese el NUMERO del producto que desea comprar.\n1-Pasta para pulido\n2-Cera para abrillantado\n3-Tinner para remover aceites\n4-Acondicionador\n5-Shampoo ph neutro\nEscriba s si quiere salir o finalizar su compra")
-while (compra!="s"){
-    switch(compra){
-        case "1":
-        acumulador = acumulador + pasta;
+
+//Función para seleccionar forma de pago. Si es efectivo se descuenta un 15% y se avisa al cliente. Si es débito o crédito se mantiene igual.
+function finalizarCompra() {
+
+    let formaPago = prompt("Seleccione el NÚMERO de opcion deseada: \n 1) Efectivo \n 2) Tarjeta de débito \n 3) Tarjeta de crédito")
+
+    while (formaPago != 1 && formaPago != 2 && formaPago != 3) {
+
+        if (formaPago == null) {
+            alert("Operación cancelada. Gracias por visitarnos, esperamos volver a verte pronto!");
             break;
-        case "2":
-            acumulador = acumulador + cera;
-            break;
-        case "3":
-            acumulador = acumulador + dinner;
-            break;
-        case "4":
-            acumulador = acumulador + revividor;
-            break;
-        case "5":
-            acumulador = acumulador + acondi;
-        case "6":
-            acumulador = acumulador + shampoo;
-            break;
-            default: alert("producto sin stock, usted lleva acumulado: $"+acumulador+" en productos")
-    } compra=(prompt("Ingrese el NUMERO del producto que desea comprar.\n1-Pasta para pulido: $"+pasta+"\n2-Cera para abrillantado: $"+cera+"\n3-Tinner para remover aceites: $"+dinner+"\n4-Acondicionador ph neutro: $"+acondi+"\n5-Shampoo ph neutro: $"+shampoo+"\nEscriba s si quiere salir"))
+        }
+
+        formaPago = prompt(`Entrada inválida. \n \n Seleccione el NÚMERO de opcion deseada: \n 1) Efectivo \n 2) Tarjeta de débito \n 3) Tarjeta de crédito`)
+
+    }
+
+    if (formaPago == "1") {
+        alert(`Por abonar en efectivo recibirá un 15% de descuento.`)
+        acumulador = acumulador * 0.85
+        calcularEnvio()
+    }
+    else if (formaPago == "2" | formaPago == "3") {
+        calcularEnvio()
+    }
+
+}
+
+//Función que calcula envío. Caso que la compra sea mayor a $10.000 es gratuito. Si es menor se le adicionan $800
+function calcularEnvio() {
+    if (acumulador >= 10000) {
+        alert("Como su compra es mayor a $10.000 el envío corre por cuenta nuestra! \n \n Su total a pagar es de: $"+acumulador)
+        console.log("envío gratis")
+    }
+    else {
+        alert("La selección de productos da un total de: $"+acumulador+" más el envío de $800 da un total a abonar de: $"+acumulador + 800+"\n Muchas gracias por tu compra. Esperamos volver a verlo pronto!")
+        console.log("paga envío")
+    }
+}
+
+
+//----------------------- Comienza a correr el código --------------------
+
+//Bienvenida a la página
+alert("Bienvenido a la tienda online de Fit-Detail")
+
+//Prompt para ver o no el menú
+let mostrarMenu = prompt("Desea ver la lista de productos que FIT-DETAIL tiene en stock, ingrese si/no");
+
+//Condicional para que en caso de que seleccione "no" despedirlo
+if (mostrarMenu == "no") {
+    alert("Gracias por visitarnos. Esperamos volver a verte pronto!");
 } 
-alert("Usted gasto un total de: $"+acumulador);
-let descEfectivo = descuento(acumulador)
-let finalEfectivo = precioEfectivo(acumulador,descEfectivo)
-let finalCredito = precioCredito (acumulador,descEfectivo)
-let precioFinalEnvio = calculoEnvio (finalEfectivo)
-let precioFinalEnvioC= calculoEnvio (finalCredito)
-let precioFinalEnvioD = calculoEnvio (acumulador)
-if (acumulador>0)
-{let formaPago = prompt("Ingrese el medio de pago que desea utilizar: \nefectivo\ndebito\ncredito\nSi quiere cancelar la compra y salir escriba s")
-switch(formaPago){
-    case "efectivo":
-        alert("En efectivo ofrecemos un %15 de descuento usted se ahorra: $"+descEfectivo+" el monto final a pagar es: $"+finalEfectivo);
-        if(finalEfectivo >=10000){alert("Como su compra supero los $10000 el envio corre por nuestra cuenta")}
-        else {alert("Debe abonar $800 de envio, por lo tanto su precio final es: $"+precioFinalEnvio)}
-        break;
-    case "debito":
-        alert("El precio final pagando con debito es igual que al precio de lista, por lo tanto usted debe abonar: $"+acumulador)
-        if(finalEfectivo >=10000){alert("Como su compra supero los $10000 el envio corre por nuestra cuenta")}
-        else {alert("Debe abonar $800 de envio, por lo tanto su precio final es: $"+precioFinalEnvioD)}
-        break;
-    case "credito":
-        alert("Pagando con tarjeta de credito tiene un %15 de recargo por lo tanto su precio final es: $"+finalCredito+" y puede pagarlo en 3 cuotas sin interes de: $"+finalCredito/3)
-        if(finalEfectivo >=10000){alert("Como su compra supero los $10000 el envio corre por nuestra cuenta")}
-        else {alert("Debe abonar $800 de envio, por lo tanto su precio final es: $"+precioFinalEnvioC)}
-        break;
-    default:
-        alert("opcion no valida")
-}}
-else{alert("Muchas gracias por ver el catalogo de FIT-DETAIL")}
-}
-/*
-let formaPago = prompt("Ingrese el medio de pago que desea utilizar: \nefectivo\ndebito\ncredito\nSi quiere cancelar la compra y salir escriba s")
-    switch(formaPago){
-        case "efectivo":
-            alert("En efectivo ofrecemos un %15 de descuento usted se ahorra: $"+descEfectivo+" el monto final a pagar es: $"+finalEfectivo);
-            if(finalEfectivo >=10000){alert("Como su compra supero los $10000 el envio corre por nuestra cuenta")}
-            else {alert("Debe abonar $800 de envio, por lo tanto su precio final es: $"+precioFinalEnvio)}
-            break;
-        case "debito":
-            alert("El precio final pagando con debito es igual que al precio de lista, por lo tanto usted debe abonar: $"+acumulador)
-            if(finalEfectivo >=10000){alert("Como su compra supero los $10000 el envio corre por nuestra cuenta")}
-            else {alert("Debe abonar $800 de envio, por lo tanto su precio final es: $"+precioFinalEnvioD)}
-            break;
-        case "credito":
-            alert("Pagando con tarjeta de credito tiene un %15 de recargo por lo tanto su precio final es: $"+finalCredito+" y puede pagarlo en 3 cuotas sin interes de: $"+finalCredito/3)
-            if(finalEfectivo >=10000){alert("Como su compra supero los $10000 el envio corre por nuestra cuenta")}
-            else {alert("Debe abonar $800 de envio, por lo tanto su precio final es: $"+precioFinalEnvioC)}
-            break;
-        default:
-            alert("opcion no valida")
-    }
-    alert("Muchas gracias por visiar FIT-DETAIL los mejores productos para la estetica vehicular")
 
-*/
+//Bucle para que, mientras que la opción sea incorrecta le vuelva a sugerir una entrada
+while (mostrarMenu != "no") {
+
+    if (mostrarMenu == "si") {
+        agregarCarrito()    //Caso "si" llamamos a la función agregarCarrito
+        break;
+    }
+    else if (mostrarMenu == "no") {
+        alert("Gracias por visitarnos. Esperamos volver a verte pronto!");  //Caso "no" nos despedimos
+        break;
+    }
+    else if (mostrarMenu == null) {
+        alert("Gracias por visitarnos. Esperamos volver a verte pronto!");  //Caso toque escape nos despedimos
+        break;
+    }
+    else {
+        mostrarMenu = prompt(`Entrada inválida. \n \n Teclee "si" para ver el catálogo o "no" para salir`);
+        if (mostrarMenu == "no") {
+            alert("Gracias por visitarnos. Esperamos volver a verte pronto!")  //Caso entrada inválida pedimos que ingrese nuevamente
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
