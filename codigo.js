@@ -19,7 +19,7 @@ let compra
 function agregarCarrito() {
 
     while (compra != "s") {
-        let compra = prompt("Ingrese el NÚMERO de producto que desea comprar (escriba s para salir y finalizar su compra): \n 1) Pasta para pulido: $"+pasta+"\n 2) Cera para abrillantado: $"+cera+"\n 3) Tinner para remover: $"+dinner+"\n 4) Acondicionador: $"+acondi+"\n 5) Shampoo ph neutro: $"+shampoo+"\n 6) Salir");
+        let compra = prompt("Ingrese el NÚMERO de producto que desea comprar (escriba s para salir y finalizar su compra): \n 1) Pasta para pulido: $"+pasta+"\n 2) Cera para abrillantado: $"+cera+"\n 3) Tinner para remover: $"+dinner+"\n 4) Acondicionador: $"+acondi+"\n 5) Shampoo ph neutro: $"+shampoo+"\n Escriba s para salir");
         if (compra == "1") {
             alert("Usted agrego una pasta para pulido a su carrito de compras")
             acumulador = acumulador + pasta
